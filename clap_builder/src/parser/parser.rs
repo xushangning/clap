@@ -902,7 +902,11 @@ impl<'cmd> Parser<'cmd> {
             .cmd
             .get_keymap()
             .get(&pos_counter)
-            .map(|arg| arg.is_allow_hyphen_values_set() && !arg.is_last_set())
+            .map(|arg| {
+                arg.is_allow_hyphen_values_set()
+                    && !arg.is_last_set()
+                    && !arg.is_trailing_var_arg_set()
+            })
             .unwrap_or_default()
             && short_arg
                 .clone()
